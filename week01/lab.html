@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 1 Lab — Your First Steps in Colab</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14294a;--teal:#0f8b80;--teal-l:#e3f4f2;--coral:#d9573b;--amber:#c98a12;--amber-l:#fbf2dc;--line:#dfe4ec;--muted:#5b6678;--bg:#f4f6fa;--font:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box} body{margin:0;font-family:var(--font);color:#1c2533;background:var(--bg);line-height:1.6;font-size:17px}
+header{background:linear-gradient(135deg,#0d1d36,#14294a 60%,#103a49);color:#fff;padding:44px 24px 36px}
+header .in{max-width:1180px;margin:0 auto} header .eb{color:#7fd8cd;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px}
+header h1{margin:10px 0 6px;font-size:40px;line-height:1.15} header p{margin:0;color:#c9d7ec;max-width:820px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px} .meta span{background:rgba(255,255,255,.1);border-radius:999px;padding:5px 14px;font-size:14px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px 1fr;gap:28px;padding:28px 24px 80px}
+nav{position:sticky;top:16px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+nav b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:2px 6px 8px}
+nav a{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;border-radius:8px;color:var(--navy);text-decoration:none;font-size:14.5px;font-weight:600}
+nav a span{color:var(--muted);font-weight:500;white-space:nowrap} nav a:hover{background:var(--teal-l)}
+nav .tools{border-top:1px solid var(--line);margin-top:10px;padding-top:10px;display:flex;flex-direction:column;gap:6px}
+nav button{font:inherit;font-size:14px;border:1px solid var(--line);background:#f7f9fc;border-radius:8px;padding:6px;cursor:pointer;color:var(--navy);font-weight:600}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:22px}
+.card h2{margin:0 0 8px;color:var(--navy)}
+.part{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 28px;margin-bottom:26px}
+.phead{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:3px solid var(--teal);padding-bottom:10px;margin-bottom:14px}
+.phead h2{margin:0;color:var(--navy);font-size:26px} .time{background:var(--teal-l);color:var(--teal);font-weight:700;border-radius:999px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.goal{background:var(--amber-l);border-left:5px solid var(--amber);padding:10px 14px;border-radius:0 10px 10px 0;margin-bottom:12px}
+.task{border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:18px 0;background:#fbfcfe}
+.task h3{margin:0 0 8px;color:var(--navy)}
+.lbl{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.codewrap{position:relative} pre{margin:0;background:#0f1b2d;color:#dbe6f5;border-radius:10px;padding:14px 16px;overflow:auto;font-family:var(--mono);font-size:14px;line-height:1.55}
+.codewrap.starter pre{background:#1c2a40} pre.out{background:#eef2f8;color:#1c2533;white-space:pre-wrap}
+.copy{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;background:#2a3d5a;color:#dbe6f5;border:0;border-radius:6px;padding:4px 9px;cursor:pointer}
+.solbtn{margin-top:14px;font:inherit;font-weight:700;font-size:15px;background:var(--teal);color:#fff;border:0;border-radius:9px;padding:8px 16px;cursor:pointer}
+.sol{display:none;border-top:2px dashed var(--teal);margin-top:14px;padding-top:4px} .sol.on{display:block}
+.explain{background:var(--teal-l);border-radius:10px;padding:10px 14px}
+code{font-family:var(--mono);font-size:.88em;background:#eef2f8;padding:1px 5px;border-radius:5px;color:#20406e}
+pre code{background:none;padding:0;color:inherit;font-size:inherit}
+kbd{font-family:var(--mono);font-size:.8em;background:#eef1f6;border:1px solid #c9d1de;border-bottom-width:3px;border-radius:6px;padding:1px 6px}
+table.canvas{border-collapse:collapse;width:100%;margin-top:8px} table.canvas th{background:var(--navy);color:#fff;text-align:left;padding:8px 12px;width:170px} table.canvas td{border:1px solid var(--line);padding:8px 12px}
+a{color:#2f6fd0} .chk{background:var(--teal-l);border:2px solid var(--teal);border-radius:12px;padding:14px 18px;font-weight:600}
+@media (max-width:860px){.wrap{grid-template-columns:1fr} nav{position:static} header h1{font-size:30px}}
+@media print{nav{display:none} .wrap{display:block} .sol{display:block} .solbtn,.copy{display:none}}
+</style></head><body>
+<header><div class="in"><div class="eb">Introduction to Machine Learning · Focus College · Fall 2026</div><h1>Week 1 Lab — Your First Steps in Google Colab</h1>
+<p>A hands-on lab to practise everything from tonight's lecture: Colab, NumPy and Pandas, writing a model and a loss function from scratch, and building EarlyCheck v0.1 on 253,680 real CDC health-survey responses.</p>
+<div class="meta"><span>⏱ About 2.5 hours</span><span>🧰 Google Colab (free)</span><span>📦 numpy · pandas · matplotlib · scikit-learn · ucimlrepo</span><span>✅ Solutions included</span></div></div></header>
+<div class="wrap">
+<nav><b>Lab parts</b><a href="#p0">Part 0 — Set up Google Colab<span>15 min</span></a><a href="#p1">Part 1 — NumPy warm-up<span>15 min</span></a><a href="#p2">Part 2 — Pandas warm-up<span>15 min</span></a><a href="#p3">Part 3 — From Scratch: Guess the Line<span>25 min</span></a><a href="#p4">Part 4 — EarlyCheck v0.1: meet the real data<span>30 min</span></a><a href="#p5">Part 5 — EarlyCheck v0.1: your first models<span>30 min</span></a><a href="#p6">Part 6 — Reflect and frame your project<span>20 min</span></a><a href="#resources">Resources<span></span></a>
+<div class="tools"><button onclick="all_(true)">Show all solutions</button><button onclick="all_(false)">Hide all solutions</button></div></nav>
+<main>
+<div class="card"><h2>Before you start</h2>
+<ul>
+<li>Open <a href="https://colab.research.google.com/" target="_blank">Google Colab</a> and sign in with your Google account. Everything in this lab runs there; nothing needs to be installed on your computer.</li>
+<li>Work through the parts in order — later parts reuse variables from earlier ones (for example <code>hours</code>, <code>scores</code> and <code>data</code>).</li>
+<li><b>Try each task yourself first.</b> The solutions are there to check your thinking, not to replace it. Each solution shows the expected output and explains why it works.</li>
+<li>Dataset: CDC Diabetes Health Indicators (<a href="https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators" target="_blank">UCI #891</a>). Backup CSV: <code>diabetes_binary_health_indicators_BRFSS2015.csv</code> in the course drive or on <a href="https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset" target="_blank">Kaggle</a>.</li>
+<li>Reminder: EarlyCheck is a learning project and a screening aid, <b>never a diagnosis</b>. Do not use it to give anyone medical advice.</li>
+</ul>
+<div class="chk">✔ In-class checkpoint: your notebook runs top to bottom (Runtime → Run all) and prints a first model score; your project dataset is chosen.</div></div>
+<section class="part" id="p0">
+<div class="phead"><h2>Part 0 — Set up Google Colab</h2><span class="time">⏱ 15 min</span></div>
+<div class="goal"><b>Goal:</b> Open a notebook in Google Colab, learn how cells work, and confirm that the core machine learning libraries are ready to use.</div>
+<div class="intro"><p>Google Colab is a free, browser-based version of Jupyter Notebook that runs on Google's computers. You do not need to install anything: if you can open Google Docs, you can run Python. A notebook is made of <b>cells</b>. A <b>code cell</b> holds Python that you run with <kbd>Shift</kbd>+<kbd>Enter</kbd>; a <b>text cell</b> holds notes written in Markdown. The output of a code cell appears directly underneath it, which makes a notebook a lab journal that mixes explanation, code and results in one place.</p>
+<ol>
+<li>Go to <a href="https://colab.research.google.com/" target="_blank">colab.research.google.com</a> and sign in with your free Google account.</li>
+<li>Click <b>File → New notebook in Drive</b>. Rename it (click the title at the top left) to <code>W1_Lab_YourName.ipynb</code>.</li>
+<li>Add a text cell at the top (<b>+ Text</b>) with your name, the date and the title “Week 1 Lab”.</li>
+<li>Find <b>Runtime → Restart session</b> and <b>Runtime → Run all</b>. You will use these whenever your notebook gets into a confusing state.</li>
+</ol></div>
+<div class="task" id="p0t0">
+<h3>0.1 Hello, Colab — check your tools</h3>
+<div class="instr"><p>Create a code cell, import the libraries we will use this term and print their version numbers. Then run a one-line calculation to confirm that Python works.</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import sys
+import numpy as np
+import pandas as pd
+import matplotlib
+import sklearn
+
+# TODO: print the Python version and the version of each library
+# TODO: print the result of 2 ** 10</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import sys
+import numpy as np
+import pandas as pd
+import matplotlib
+import sklearn
+
+print(&quot;Python      :&quot;, sys.version.split()[0])
+print(&quot;NumPy       :&quot;, np.__version__)
+print(&quot;Pandas      :&quot;, pd.__version__)
+print(&quot;Matplotlib  :&quot;, matplotlib.__version__)
+print(&quot;scikit-learn:&quot;, sklearn.__version__)
+print(&quot;2 ** 10 =&quot;, 2 ** 10)</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">Python      : 3.x.x
+NumPy       : 2.x.x
+Pandas      : 2.x.x (or 3.x)
+Matplotlib  : 3.x.x
+scikit-learn: 1.x.x
+2 ** 10 = 1024
+
+(Your exact version numbers depend on the current Colab image — that is fine.)</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>Every library prints a <code>__version__</code> attribute. Recording versions at the top of a notebook is a professional habit: when somebody else re-runs your work months later, they know which tools produced your results. That is the first step towards <b>reproducibility</b>, which we will care about all term.</p></div>
+</div></div>
+</section><section class="part" id="p1">
+<div class="phead"><h2>Part 1 — NumPy warm-up</h2><span class="time">⏱ 15 min</span></div>
+<div class="goal"><b>Goal:</b> Use NumPy arrays to do maths on a whole column of numbers at once (vectorised operations), which is how every ML library works underneath.</div>
+<div class="intro"><p>A NumPy <b>array</b> is like a Python list that is built for maths. Instead of writing a loop to add 5 to every number, you write <code>arr + 5</code> and NumPy does it for every element in one fast step. Machine learning models are, at heart, lots of arithmetic on arrays, so being comfortable here pays off every week.</p></div>
+<div class="task" id="p1t0">
+<h3>1.1 Study hours and exam scores</h3>
+<div class="instr"><p>Ten students recorded how many hours they studied and the score they got on an exam. Store both as NumPy arrays, then:</p>
+<ol><li>Print the mean and standard deviation of the scores.</li>
+<li>Print the largest score and the hours studied by that student (hint: <code>np.argmax</code>).</li>
+<li>A teacher adds a 2-point bonus to everyone. Create <code>curved</code> without using a loop.</li>
+<li>Print how many students scored 70 or more (hint: a comparison gives True/False values, and True counts as 1).</li></ol></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import numpy as np
+
+hours  = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+scores = np.array([52, 55, 61, 64, 68, 71, 77, 80, 83, 88])
+
+# 1. mean and standard deviation
+# 2. best score and the hours behind it
+# 3. curved = ...
+# 4. number of students with 70 or more</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import numpy as np
+
+hours  = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+scores = np.array([52, 55, 61, 64, 68, 71, 77, 80, 83, 88])
+
+print(&quot;Mean score:&quot;, scores.mean())
+print(&quot;Std of scores:&quot;, round(scores.std(), 2))
+
+best = np.argmax(scores)          # position (index) of the largest value
+print(&quot;Best score:&quot;, scores[best], &quot;after&quot;, hours[best], &quot;hours&quot;)
+
+curved = scores + 2               # broadcasting: +2 is applied to every element
+print(&quot;Curved:&quot;, curved)
+
+print(&quot;Students with 70+:&quot;, (scores &gt;= 70).sum())</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">Mean score: 69.9
+Std of scores: 11.47
+Best score: 88 after 10 hours
+Curved: [54 57 63 66 70 73 79 82 85 90]
+Students with 70+: 5</pre>
+<div class="lbl">Why it works</div><div class="explain"><p><code>scores + 2</code> is called <b>broadcasting</b>: NumPy stretches the single number 2 to match the shape of the array. <code>scores >= 70</code> produces a Boolean array such as <code>[False, …, True]</code>; summing it counts the <code>True</code> values. You will use this exact trick to count how many people in a dataset have diabetes.</p></div>
+</div></div>
+</section><section class="part" id="p2">
+<div class="phead"><h2>Part 2 — Pandas warm-up</h2><span class="time">⏱ 15 min</span></div>
+<div class="goal"><b>Goal:</b> Load a table into a Pandas DataFrame, inspect it, filter rows and summarise groups — the everyday moves of a data scientist.</div>
+<div class="intro"><p>A <b>DataFrame</b> is a spreadsheet inside Python: rows are examples, columns are variables. In machine learning the columns we use as inputs are called <b>features</b> and the column we want to predict is called the <b>label</b> or <b>target</b>.</p></div>
+<div class="task" id="p2t0">
+<h3>2.1 A tiny student table</h3>
+<div class="instr"><p>Build a DataFrame from the arrays in Part 1 and add a column called <code>passed</code> that is 1 if the score is at least 65 and 0 otherwise. Then:</p>
+<ol><li>Show the first five rows with <code>.head()</code> and a statistical summary with <code>.describe()</code>.</li>
+<li>Show only the students who studied more than 6 hours.</li>
+<li>Use <code>groupby</code> to compare the average hours studied by students who passed and who did not.</li>
+<li>In a comment, write which column is the label if we wanted to predict <code>passed</code>, and which column is the feature.</li></ol></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import pandas as pd
+
+df = pd.DataFrame({&quot;hours&quot;: hours, &quot;score&quot;: scores})
+# df[&quot;passed&quot;] = ...
+
+# 1. head and describe
+# 2. filter
+# 3. groupby
+# 4. label = ?  feature = ?</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import pandas as pd
+
+df = pd.DataFrame({&quot;hours&quot;: hours, &quot;score&quot;: scores})
+df[&quot;passed&quot;] = (df[&quot;score&quot;] &gt;= 65).astype(int)
+
+print(df.head())
+print(df.describe().round(2))
+
+print(df[df[&quot;hours&quot;] &gt; 6])
+
+print(df.groupby(&quot;passed&quot;)[&quot;hours&quot;].mean())
+
+# 4. To predict &#x27;passed&#x27;, the LABEL is the &#x27;passed&#x27; column and the FEATURE is &#x27;hours&#x27;.
+#    (&#x27;score&#x27; must NOT be used as a feature: &#x27;passed&#x27; is calculated from it, so using it
+#     would be cheating — this is called data leakage, and we will meet it again in Week 2.)</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">   hours  score  passed
+0      1     52       0
+1      2     55       0
+2      3     61       0
+3      4     64       0
+4      5     68       1
+       hours  score  passed
+count  10.00  10.00   10.00
+mean    5.50  69.90    0.60
+std     3.03  12.08    0.52
+min     1.00  52.00    0.00
+25%     3.25  61.75    0.00
+50%     5.50  69.50    1.00
+75%     7.75  79.25    1.00
+max    10.00  88.00    1.00
+   hours  score  passed
+6      7     77       1
+7      8     80       1
+8      9     83       1
+9     10     88       1
+passed
+0    2.5
+1    7.5
+Name: hours, dtype: float64</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>Notice that <code>.describe()</code> gives a standard deviation of 12.08 while NumPy gave 11.47. That is not a mistake: Pandas divides by <i>n − 1</i> (the sample standard deviation) and NumPy divides by <i>n</i> by default. Knowing small details like this saves hours of confusion later. The <code>groupby</code> result already hints at a pattern a model could learn: students who passed studied 7.5 hours on average versus 2.5 hours for those who did not.</p></div>
+</div></div>
+</section><section class="part" id="p3">
+<div class="phead"><h2>Part 3 — From Scratch: Guess the Line</h2><span class="time">⏱ 25 min</span></div>
+<div class="goal"><b>Goal:</b> Write a model and a loss function yourself in plain Python/NumPy, then search for the knob settings that make the loss smallest.</div>
+<div class="intro"><p>Our first model is a straight line, <code>y = w·x + b</code>. The two <b>parameters</b> (knobs) are the slope <code>w</code> and the intercept <code>b</code>. To judge how good a line is, we use the <b>mean squared error (MSE)</b>: for every student, take the gap between the predicted score and the real score, square it, then average all of the squares. A smaller MSE means a better line. <i>Learning</i> is simply the search for the <code>w</code> and <code>b</code> with the smallest MSE.</p></div>
+<div class="task" id="p3t0">
+<h3>3.1 Write predict() and mse()</h3>
+<div class="instr"><p>Write a function <code>predict(x, w, b)</code> that returns <code>w * x + b</code>, and a function <code>mse(y_true, y_pred)</code> that returns the mean of the squared errors. Test them on three guesses: (w=5, b=40), (w=3, b=50) and (w=4, b=48). Which guess is best?</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>def predict(x, w, b):
+    # TODO
+    pass
+
+def mse(y_true, y_pred):
+    # TODO: mean of (y_true - y_pred) squared
+    pass
+
+for w, b in [(5, 40), (3, 50), (4, 48)]:
+    print(w, b, mse(scores, predict(hours, w, b)))</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>def predict(x, w, b):
+    return w * x + b
+
+def mse(y_true, y_pred):
+    errors = y_true - y_pred
+    return np.mean(errors ** 2)
+
+for w, b in [(5, 40), (3, 50), (4, 48)]:
+    loss = mse(scores, predict(hours, w, b))
+    print(f&quot;w={w}, b={b}  -&gt;  MSE = {loss:.2f}&quot;)</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">w=5, b=40  -&gt;  MSE = 14.80
+w=3, b=50  -&gt;  MSE = 20.00
+w=4, b=48  -&gt;  MSE = 0.50</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>The guess <code>w=4, b=48</code> wins with an MSE of 0.50: “every extra hour of study is worth about 4 points, and a student who studies zero hours would score about 48”. Squaring the errors does two jobs: it stops positive and negative errors from cancelling out, and it punishes big mistakes much more than small ones.</p></div>
+</div></div><div class="task" id="p3t1">
+<h3>3.2 Let the computer guess: a brute-force search</h3>
+<div class="instr"><p>Instead of guessing by hand, try <i>every</i> combination of <code>w</code> from 0 to 8 (step 0.1) and <code>b</code> from 30 to 60 (step 0.5). Keep the pair with the lowest MSE. How many lines did the computer try?</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>best_w, best_b, best_loss = None, None, float(&quot;inf&quot;)
+tries = 0
+for w in np.arange(0, 8.01, 0.1):
+    for b in np.arange(30, 60.01, 0.5):
+        # TODO: compute the loss, count the try, keep the best
+        pass
+print(best_w, best_b, best_loss, tries)</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>best_w, best_b, best_loss = None, None, float(&quot;inf&quot;)
+tries = 0
+for w in np.arange(0, 8.01, 0.1):
+    for b in np.arange(30, 60.01, 0.5):
+        loss = mse(scores, predict(hours, w, b))
+        tries += 1
+        if loss &lt; best_loss:
+            best_w, best_b, best_loss = w, b, loss
+
+print(f&quot;Tried {tries} lines&quot;)
+print(f&quot;Best: w={best_w:.1f}, b={best_b:.1f}, MSE={best_loss:.3f}&quot;)</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">Tried 4941 lines
+Best: w=4.0, b=48.0, MSE=0.500</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>The computer tried 4,941 lines and found the same answer we reached by hand. Brute force works for two knobs, but a real model can have millions or billions of knobs, and trying every combination would take longer than the age of the universe. Next week we will learn <b>gradient descent</b>, which walks downhill on the loss instead of checking every point. (For the record, the mathematically perfect line is w = 3.98, b = 48.0 with MSE 0.487 — our grid could not land on 3.98 exactly.)</p></div>
+</div></div><div class="task" id="p3t2">
+<h3>3.3 Plot the data and your best line</h3>
+<div class="instr"><p>Use Matplotlib to draw the ten students as dots and your best line on top. Label the axes and add a title that shows the MSE.</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import matplotlib.pyplot as plt
+
+# TODO: scatter the data, plot the line, label axes, add a title</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6, 4))
+plt.scatter(hours, scores, label=&quot;students&quot;)
+plt.plot(hours, predict(hours, best_w, best_b), color=&quot;red&quot;,
+         label=f&quot;y = {best_w:.1f}x + {best_b:.1f}&quot;)
+plt.xlabel(&quot;Hours studied&quot;)
+plt.ylabel(&quot;Exam score&quot;)
+plt.title(f&quot;Best line found by brute force (MSE = {best_loss:.2f})&quot;)
+plt.legend()
+plt.show()</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">A scatter plot of 10 rising dots with a red line passing almost exactly through them.</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>Always look at your data and your model together. A picture tells you instantly whether the model is sensible — something a single number like MSE can hide.</p></div>
+</div></div>
+</section><section class="part" id="p4">
+<div class="phead"><h2>Part 4 — EarlyCheck v0.1: meet the real data</h2><span class="time">⏱ 30 min</span></div>
+<div class="goal"><b>Goal:</b> Load the CDC Diabetes Health Indicators dataset (253,680 survey responses), explore it, and describe it in ML vocabulary.</div>
+<div class="intro"><p><b>EarlyCheck</b> is the class project we build all term: a screening aid that flags people who may have diabetes or prediabetes so they can be encouraged to get a blood test. It is <b>never a diagnosis</b>. The data comes from the CDC's 2015 Behavioral Risk Factor Surveillance System (BRFSS) telephone survey and is published on the UCI Machine Learning Repository as dataset #891.</p>
+<p>If the UCI website is slow, use the backup CSV in the course drive (<code>diabetes_binary_health_indicators_BRFSS2015.csv</code>, also on Kaggle). Upload it to Colab using the folder icon on the left.</p></div>
+<div class="task" id="p4t0">
+<h3>4.1 Load the dataset</h3>
+<div class="instr"><p>Install <code>ucimlrepo</code>, fetch dataset 891 and combine the features and the target into one DataFrame called <code>data</code>. If the download fails, fall back to the CSV. Print the shape.</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>!pip install -q ucimlrepo
+import pandas as pd
+
+# TODO: try fetch_ucirepo(id=891); if it fails, read the CSV
+# data = ...
+print(data.shape)</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code># In Colab, first run:  !pip install -q ucimlrepo
+import pandas as pd
+
+try:
+    from ucimlrepo import fetch_ucirepo
+    cdc = fetch_ucirepo(id=891)
+    data = pd.concat([cdc.data.features, cdc.data.targets], axis=1)
+    print(&quot;Loaded from the UCI repository&quot;)
+except Exception as e:
+    print(&quot;UCI download failed, using the backup CSV:&quot;, type(e).__name__)
+    data = pd.read_csv(&quot;diabetes_binary_health_indicators_BRFSS2015.csv&quot;)
+
+print(data.shape)</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">Loaded from the UCI repository
+(253680, 22)</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>253,680 rows (examples, one per survey respondent) and 22 columns: 21 features plus the label <code>Diabetes_binary</code>. The <code>try / except</code> pattern is a habit worth keeping: real data sources go down, and a notebook with a fallback keeps working.</p></div>
+</div></div><div class="task" id="p4t1">
+<h3>4.2 First look</h3>
+<div class="instr"><p>Answer these questions with code:</p>
+<ol><li>What are the column names? Show the first 3 rows.</li>
+<li>Are there any missing values?</li>
+<li>How many people are labelled 1 (prediabetes or diabetes) and what fraction is that?</li>
+<li>What is the average BMI?</li></ol></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code># 1. columns and first rows
+# 2. missing values per column (total)
+# 3. counts and proportions of Diabetes_binary
+# 4. mean BMI</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>print(list(data.columns))
+print(data.head(3))
+
+print(&quot;Missing values in the whole table:&quot;, data.isna().sum().sum())
+
+print(data[&quot;Diabetes_binary&quot;].value_counts())
+print(data[&quot;Diabetes_binary&quot;].value_counts(normalize=True).round(4))
+
+print(&quot;Average BMI:&quot;, round(data[&quot;BMI&quot;].mean(), 1))</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">[&#x27;HighBP&#x27;, &#x27;HighChol&#x27;, &#x27;CholCheck&#x27;, &#x27;BMI&#x27;, &#x27;Smoker&#x27;, &#x27;Stroke&#x27;, &#x27;HeartDiseaseorAttack&#x27;, &#x27;PhysActivity&#x27;, &#x27;Fruits&#x27;, &#x27;Veggies&#x27;, &#x27;HvyAlcoholConsump&#x27;, &#x27;AnyHealthcare&#x27;, &#x27;NoDocbcCost&#x27;, &#x27;GenHlth&#x27;, &#x27;MentHlth&#x27;, &#x27;PhysHlth&#x27;, &#x27;DiffWalk&#x27;, &#x27;Sex&#x27;, &#x27;Age&#x27;, &#x27;Education&#x27;, &#x27;Income&#x27;, &#x27;Diabetes_binary&#x27;]
+(first three rows)
+Missing values in the whole table: 0
+Diabetes_binary
+0    218334
+1     35346
+Name: count, dtype: int64
+Diabetes_binary
+0    0.8607
+1    0.1393
+Name: proportion, dtype: float64
+Average BMI: 28.4</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>Only about <b>14%</b> of people are labelled 1. This is called an <b>imbalanced</b> dataset, and it matters enormously: a lazy model that always says “no diabetes” would already be right 86% of the time. Keep that number in your head for Part 5.</p></div>
+</div></div><div class="task" id="p4t2">
+<h3>4.3 Do the features differ between the two groups?</h3>
+<div class="instr"><p>Use <code>groupby</code> to compare the average of <code>HighBP</code>, <code>HighChol</code>, <code>BMI</code>, <code>PhysActivity</code> and <code>GenHlth</code> for people labelled 0 and 1. Then draw a histogram of BMI.</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>cols = [&quot;HighBP&quot;, &quot;HighChol&quot;, &quot;BMI&quot;, &quot;PhysActivity&quot;, &quot;GenHlth&quot;]
+# TODO: groupby + mean
+# TODO: histogram of BMI</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>import matplotlib.pyplot as plt
+
+cols = [&quot;HighBP&quot;, &quot;HighChol&quot;, &quot;BMI&quot;, &quot;PhysActivity&quot;, &quot;GenHlth&quot;]
+print(data.groupby(&quot;Diabetes_binary&quot;)[cols].mean().round(2))
+
+data[&quot;BMI&quot;].plot(kind=&quot;hist&quot;, bins=60, figsize=(6, 3), title=&quot;BMI of 253,680 survey respondents&quot;)
+plt.xlabel(&quot;BMI&quot;)
+plt.show()</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">(approximately, on the real data)
+                 HighBP  HighChol    BMI  PhysActivity  GenHlth
+Diabetes_binary
+0                  0.38      0.38  27.8          0.78     2.4
+1                  0.75      0.67  31.9          0.63     3.3
++ a right-skewed histogram that peaks in the mid-to-high 20s</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>People labelled 1 are far more likely to report high blood pressure and high cholesterol, have a higher average BMI, are less physically active and rate their general health worse (GenHlth: 1 = excellent, 5 = poor). These differences are what a model will learn from. Remember: this shows <b>association</b>, not cause — some people may have changed their habits <i>after</i> being diagnosed.</p></div>
+</div></div>
+</section><section class="part" id="p5">
+<div class="phead"><h2>Part 5 — EarlyCheck v0.1: your first models</h2><span class="time">⏱ 30 min</span></div>
+<div class="goal"><b>Goal:</b> Train a do-nothing baseline and a first real model with scikit-learn, and discover why accuracy alone can fool you.</div>
+<div class="intro"><p>Every scikit-learn model follows the same three-step recipe: <b>create</b> it, <b>fit</b> it on training data, then <b>predict</b> or <b>score</b> on test data it has never seen. We always compare a real model against a <b>baseline</b> — the simplest possible guess — because a model is only useful if it beats doing nothing.</p></div>
+<div class="task" id="p5t0">
+<h3>5.1 Split the data</h3>
+<div class="instr"><p>Put the 21 features in <code>X</code> and the label in <code>y</code>. Split into 80% training and 20% test with <code>train_test_split</code>, using <code>stratify=y</code> and <code>random_state=42</code>. Print the size of each part and the positive rate in each.</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>from sklearn.model_selection import train_test_split
+
+X = ...
+y = ...
+# X_train, X_test, y_train, y_test = train_test_split(...)</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>from sklearn.model_selection import train_test_split
+
+X = data.drop(columns=&quot;Diabetes_binary&quot;)
+y = data[&quot;Diabetes_binary&quot;]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, stratify=y, random_state=42)
+
+print(&quot;Train:&quot;, X_train.shape, &quot; positive rate:&quot;, round(y_train.mean(), 4))
+print(&quot;Test :&quot;, X_test.shape,  &quot; positive rate:&quot;, round(y_test.mean(), 4))</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">Train: (202944, 21)  positive rate: 0.1393
+Test : (50736, 21)  positive rate: 0.1393</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>The test set is our “final exam”: the model never sees it during training, so its score tells us how the model will behave on new people. <code>stratify=y</code> keeps the 14% positive rate the same in both parts. (Week 2 will add one more important step: removing duplicate rows <i>before</i> splitting.)</p></div>
+</div></div><div class="task" id="p5t1">
+<h3>5.2 Baseline vs. first model</h3>
+<div class="instr"><p>Train a <code>DummyClassifier(strategy="most_frequent")</code> and a <code>LogisticRegression(max_iter=1000)</code>. For each, print the test accuracy and the <b>recall</b> (the fraction of real positive cases the model catches). What do you notice?</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>from sklearn.dummy import DummyClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, recall_score
+
+# TODO: fit both models, predict on X_test, print accuracy and recall</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>from sklearn.dummy import DummyClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, recall_score
+
+models = {
+    &quot;Baseline (always 0)&quot;: DummyClassifier(strategy=&quot;most_frequent&quot;),
+    &quot;Logistic regression&quot;: LogisticRegression(max_iter=1000),
+}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)               # 1. learn from the training data
+    pred = model.predict(X_test)              # 2. predict for unseen people
+    acc = accuracy_score(y_test, pred)        # 3. score
+    rec = recall_score(y_test, pred)
+    print(f&quot;{name:22s} accuracy = {acc:.3f}   recall = {rec:.3f}&quot;)</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">(approximately, on the real data)
+Baseline (always 0)    accuracy = 0.861   recall = 0.000
+Logistic regression    accuracy = 0.86x   recall = about 0.15–0.20</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>This is the <b>accuracy trap</b>. The baseline scores about 86% accuracy while catching <b>zero</b> people with diabetes — useless for a screening tool. Logistic regression is only slightly more accurate but at least catches some positive cases; even so, it misses most of them. For EarlyCheck, recall matters far more than accuracy, because a missed case is a person who never gets tested. In Week 3 we will learn how to fix this with class weights and decision thresholds.</p></div>
+</div></div><div class="task" id="p5t2">
+<h3>5.3 Bonus — a first regression model for BMI</h3>
+<div class="instr"><p>EarlyCheck's second question is a regression problem: predict a person's BMI from the other features. Compare a <code>DummyRegressor</code> (always predicts the mean) with <code>LinearRegression</code> using the <b>mean absolute error (MAE)</b>. Remember to drop both <code>BMI</code> and the diabetes label from the inputs.</p></div>
+<div class="lbl">Starter code</div><div class="codewrap starter"><button class="copy" onclick="cp(this)">Copy</button><pre><code>from sklearn.dummy import DummyRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error
+
+# TODO</code></pre></div>
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code>from sklearn.dummy import DummyRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error
+
+Xr = data.drop(columns=[&quot;BMI&quot;, &quot;Diabetes_binary&quot;])
+yr = data[&quot;BMI&quot;]
+Xr_train, Xr_test, yr_train, yr_test = train_test_split(Xr, yr, test_size=0.2, random_state=42)
+
+for name, model in {&quot;Baseline (mean BMI)&quot;: DummyRegressor(),
+                    &quot;Linear regression&quot;: LinearRegression()}.items():
+    model.fit(Xr_train, yr_train)
+    mae = mean_absolute_error(yr_test, model.predict(Xr_test))
+    print(f&quot;{name:20s} MAE = {mae:.2f} BMI points&quot;)</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">(approximately, on the real data)
+Baseline (mean BMI)  MAE = about 4.7 BMI points
+Linear regression    MAE = about 4.3–4.5 BMI points</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>Linear regression beats the baseline, but only a little: lifestyle survey answers explain some of BMI, not most of it. That is an honest, useful finding. Next week we will improve this model properly, with clean data and better evaluation (MAE, RMSE and R²).</p></div>
+</div></div>
+</section><section class="part" id="p6">
+<div class="phead"><h2>Part 6 — Reflect and frame your project</h2><span class="time">⏱ 20 min</span></div>
+<div class="goal"><b>Goal:</b> Turn what you saw into words, and write your first Problem Framing Canvas for your own project.</div>
+<div class="intro"><p>Machine learning is not only code. Before anyone trains a model, a good data scientist decides the question, the target, the type of problem, how success will be measured, who benefits and what could go wrong. This is the <b>Problem Framing Canvas</b> you saw in the lecture.</p></div>
+<div class="task" id="p6t0">
+<h3>6.1 Reflection questions</h3>
+<div class="instr"><p>Answer in a text cell (2–3 sentences each):</p>
+<ol><li>The baseline got about 86% accuracy. Why is that number misleading for EarlyCheck?</li>
+<li>In Part 3, what were the parameters of the model, and what did the loss tell you?</li>
+<li>Name one risk of using EarlyCheck in the real world.</li></ol></div>
+
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code># Model answers (write yours in a text cell)
+# 1. Because 86% of people do not have diabetes, a model that always answers &quot;no&quot; is already
+#    86% accurate while catching nobody. For a screening tool the important number is recall:
+#    how many of the people who really are at risk we flag.
+# 2. The parameters were the slope w and the intercept b. The loss (MSE) measured how far, on
+#    average, the line&#x27;s predictions were from the real scores; smaller loss = better fit.
+# 3. Examples: the survey is self-reported and from the US in 2015, so it may not transfer to
+#    other countries or years; a false &quot;low risk&quot; could falsely reassure someone; the model
+#    may work less well for some income or age groups (fairness).</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">Written answers similar to the model answers.</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>If you can explain these three answers to a friend who missed class, you have understood the core of Week 1.</p></div>
+</div></div><div class="task" id="p6t1">
+<h3>6.2 Your Problem Framing Canvas</h3>
+<div class="instr"><p>On your own, choose a dataset from the approved list (or your own, with instructor approval) and fill in this canvas. Submit it as homework (1 page).</p>
+<table class="canvas"><tr><th>Question</th><td>What do we want to predict, in plain English?</td></tr>
+<tr><th>Target (label)</th><td>Which column holds the answer?</td></tr>
+<tr><th>Features</th><td>Which columns will we use as inputs? Any we must not use?</td></tr>
+<tr><th>Problem type</th><td>Regression, classification, clustering…?</td></tr>
+<tr><th>Success metric</th><td>Which number will we use to judge success, and what baseline must we beat?</td></tr>
+<tr><th>Who benefits</th><td>Who uses the output and how?</td></tr>
+<tr><th>Risks</th><td>What could go wrong? Who could be harmed?</td></tr></table></div>
+
+<button class="solbtn" onclick="tog(this)">Show solution</button>
+<div class="sol">
+<div class="lbl">Solution</div><div class="codewrap solution"><button class="copy" onclick="cp(this)">Copy</button><pre><code># Worked example — EarlyCheck
+# Question       : Is this person likely to have diabetes or prediabetes, so they should get a blood test?
+# Target         : Diabetes_binary (0 = no, 1 = prediabetes or diabetes)
+# Features       : 21 survey answers (blood pressure, cholesterol, BMI, activity, age, income ...)
+# Problem type   : Supervised learning — binary classification
+# Success metric : Recall on the positive class (catch most at-risk people) while keeping precision
+#                  reasonable; must beat the always-&quot;no&quot; baseline (recall 0)
+# Who benefits   : Members of the public and community health programmes, who can encourage testing early
+# Risks          : False reassurance (missed cases); unnecessary worry (false alarms); 2015 US survey may
+#                  not transfer; self-reported answers; may be less accurate for some groups;
+#                  must always say &quot;this is not a diagnosis — see a doctor&quot;</code></pre></div>
+<div class="lbl">Expected output</div><pre class="out">A completed one-page canvas for your chosen project dataset.</pre>
+<div class="lbl">Why it works</div><div class="explain"><p>Framing first saves weeks of wasted work. Projects that skip this step often build an accurate model that answers the wrong question.</p></div>
+</div></div>
+</section>
+<div class="card" id="resources"><h2>Resources</h2><ul>
+<li>Google Colab — <a href="https://colab.research.google.com/" target="_blank">colab.research.google.com</a></li>
+<li>NumPy: the absolute basics for beginners — <a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank">numpy.org</a></li>
+<li>10 minutes to pandas — <a href="https://pandas.pydata.org/docs/user_guide/10min.html" target="_blank">pandas.pydata.org</a></li>
+<li>Matplotlib pyplot tutorial — <a href="https://matplotlib.org/stable/tutorials/pyplot.html" target="_blank">matplotlib.org</a></li>
+<li>scikit-learn: getting started — <a href="https://scikit-learn.org/stable/getting_started.html" target="_blank">scikit-learn.org</a></li>
+<li>ucimlrepo package — <a href="https://github.com/uci-ml-repo/ucimlrepo" target="_blank">github.com/uci-ml-repo/ucimlrepo</a></li>
+<li>Géron, A. (2025). <i>Hands-on machine learning with Scikit-Learn and PyTorch</i>, Chapter 1 — <a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9798341607972/" target="_blank">O'Reilly</a></li>
+</ul></div>
+</main></div>
+<script>
+function tog(b){const s=b.nextElementSibling;const on=s.classList.toggle('on');b.textContent=on?'Hide solution':'Show solution';}
+function all_(v){document.querySelectorAll('.sol').forEach(s=>s.classList.toggle('on',v));document.querySelectorAll('.solbtn').forEach(b=>b.textContent=v?'Hide solution':'Show solution');}
+function cp(b){const t=b.parentElement.querySelector('pre').innerText;navigator.clipboard&&navigator.clipboard.writeText(t).then(()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1200)});}
+</script></body></html>
